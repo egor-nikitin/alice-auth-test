@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+<input type="text" id="codeInput"></input>
+<button type="button" onclick="codeInputClicked()">Нажми</button>
+<script>function codeInputClicked() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var entries = urlParams.entries();
+    
+    if (document.getElementById("codeInput").value === "")
+        return;
+
+    var newQuery = "code=" + document.getElementById("codeInput").value;
+    var redirectUri;
+    for (pair of entries) {
+        if (pair[0] === "client_id") {
+            newQuery += "&client_id=" + pair[1];
+        }
+        if (pair[0] === "state") {
+            newQuery += "&state=" + pair[1];
+        }
+        if (pair[0] === "redirect_uri") {
+            redirectUri = pair[1];
+        }
+    }
+    console.log("Look! " + newQuery);
+    console.log("Look! " + redirectUri);
+    window.location.replace(redirectUri + "?" + newQuery);
+}</script>
+</body>
+</html>
